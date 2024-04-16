@@ -14,9 +14,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(
     username: string,
     password: string,
-    expoPushNotificationToken: string,
   ): Promise<user | GeneralResponse> {
-    const userData = await this.authService.validate(username, password,expoPushNotificationToken);
+    const userData = await this.authService.validate(username, password);
 
     if (!userData || !userData.hasOwnProperty('id')) {
       throw new UnauthorizedException();

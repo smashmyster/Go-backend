@@ -12,6 +12,14 @@ import { GenderModule } from './app/logic/gender/gender.module';
 import { AuthController } from './app/logic/auth/auth.controller';
 import { AuthService } from './app/logic/auth/auth.service';
 import { AuthModule } from './app/logic/auth/auth.module';
+import { JwtService } from '@nestjs/jwt';
+import { MulterModule } from '@nestjs/platform-express';
+import { RequestsController } from './app/logic/requests/requests.controller';
+import { RequestsService } from './app/logic/requests/requests.service';
+import { RequestsModule } from './app/logic/requests/requests.module';
+import { ChatController } from './app/logic/chat/chat.controller';
+import { ChatService } from './app/logic/chat/chat.service';
+import { ChatModule } from './app/logic/chat/chat.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 @Module({
@@ -28,16 +36,31 @@ require('dotenv').config();
       entities: ['dist/src/app/entities/*{.ts,.js}'],
       namingStrategy: new CustomNamingStrategy(),
     }),
+    MulterModule.register({
+      dest: `${process.env.imagePath}`,
+    }),
     UserModule,
     GenderModule,
     AuthModule,
+    RequestsModule,
+    ChatModule,
   ],
   controllers: [
     AppController,
     UserController,
     GenderController,
     AuthController,
+    RequestsController,
+    ChatController,
   ],
-  providers: [AppService, UserService, GenderService, AuthService],
+  providers: [
+    AppService,
+    UserService,
+    GenderService,
+    AuthService,
+    JwtService,
+    RequestsService,
+    ChatService,
+  ],
 })
 export class AppModule {}

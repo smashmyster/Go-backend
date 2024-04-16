@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { UserPhotos } from './user-photos';
 
 @Entity()
 export class user extends BaseEntity {
@@ -24,10 +31,14 @@ export class user extends BaseEntity {
   DOB: Date;
   @Column({ nullable: true })
   walletBalance: number;
+  @Column({ nullable: true })
+  fee: number;
   @Column({ type: 'varchar', nullable: true, default: '' })
   coverImage: string;
   @Column({ type: 'boolean', nullable: true, default: false })
   private: boolean;
+  @Column({ type: 'boolean', nullable: true, default: false })
+  verified: boolean;
   @Column({ type: 'boolean', nullable: true, default: false })
   active: boolean;
   @Column({ type: 'boolean', nullable: true, default: false })
@@ -42,4 +53,10 @@ export class user extends BaseEntity {
   latlong: string;
   @Column({ type: 'varchar', nullable: true, default: null })
   otp: string;
+  @Column({ type: 'float', nullable: true, default: 0 })
+  numberOfRequests: number;
+  @Column({ type: 'float', nullable: true, default: 0 })
+  requestsAccepted: number;
+  @OneToMany(() => UserPhotos, (photo) => photo.user)
+  photos: UserPhotos[];
 }
