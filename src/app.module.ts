@@ -21,7 +21,6 @@ import { ChatController } from './app/logic/chat/chat.controller';
 import { ChatService } from './app/logic/chat/chat.service';
 import { ChatModule } from './app/logic/chat/chat.module';
 import { Gateway } from './app/logic/gateway/gateway';
-import { GatewayModule } from './app/logic/gateway/gateway.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 @Module({
@@ -46,7 +45,6 @@ require('dotenv').config();
     AuthModule,
     RequestsModule,
     ChatModule,
-    GatewayModule,
   ],
   controllers: [
     AppController,
