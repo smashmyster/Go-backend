@@ -8,10 +8,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { RequestUserDTO } from './DTO/FollowUserDTO';
-import { GeneralResponse } from '../../../Utils/SharedSchema';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RequestsService } from './requests.service';
 import { UserRequests } from '../../entities/user-requests';
+import { GeneralResponse } from '../../../utils/SharedSchema';
 
 @Controller('requesting')
 export class RequestsController {
