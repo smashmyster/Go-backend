@@ -4,6 +4,7 @@ import { messages } from '../../entities/messages';
 import { messageTypes } from '../../entities/message-type';
 import { user } from '../../entities/user';
 import { messagesChat } from '../../entities/message-chat';
+import { ChatService } from './chat.service';
 
 @Module({
   imports: [

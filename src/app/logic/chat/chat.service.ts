@@ -8,6 +8,7 @@ import { messageTypes } from '../../entities/message-type';
 import { messageRelations } from './DTO/relations';
 import { SendUserMessageDTO } from './DTO/sendUserMessageDTO';
 import { GeneralResponse } from '../../../utils/SharedSchema';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ChatService {
@@ -20,6 +21,7 @@ export class ChatService {
     @InjectRepository(messageTypes)
     private readonly messageTypeRepo: Repository<messageTypes>,
   ) {}
+  private subject = new Subject<{ name: string, data: unknown,userId:number }>();
 
   async sendMessage(
     data: SendUserMessageDTO,
@@ -52,9 +54,12 @@ export class ChatService {
       { id: chatLink.id },
       { lastUpdated: new Date() },
     );
+    this.subject.next({name:'message',data:saveMessage,userId:receiver.id })
     return saveMessage;
   }
-
+  getSocketEmmit$(): Observable<{ name: string, data: unknown,userId:number }> {
+    return this.subject.asObservable();
+  }
   async getMessages(userChat: number, offset: number): Promise<messages[]> {
     const skip = offset ?? 0;
     const chatLinkData = await this.messageChatRepo.findOne({

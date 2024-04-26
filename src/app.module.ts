@@ -20,6 +20,8 @@ import { RequestsModule } from './app/logic/requests/requests.module';
 import { ChatController } from './app/logic/chat/chat.controller';
 import { ChatService } from './app/logic/chat/chat.service';
 import { ChatModule } from './app/logic/chat/chat.module';
+import { GatewayModule } from './app/logic/gateway/gateway.module';
+import { Gateway } from './app/logic/gateway/gateway';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 @Module({
@@ -44,6 +46,7 @@ require('dotenv').config();
     AuthModule,
     RequestsModule,
     ChatModule,
+    GatewayModule,
   ],
   controllers: [
     AppController,
@@ -61,6 +64,7 @@ require('dotenv').config();
     JwtService,
     RequestsService,
     ChatService,
+    Gateway
   ],
 })
 export class AppModule {}

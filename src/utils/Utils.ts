@@ -8,4 +8,5 @@ export enum userUpdateDetails {
   'Name',
   'DOB',
   'Email',
+  Fee
 }

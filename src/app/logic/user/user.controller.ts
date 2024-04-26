@@ -55,6 +55,8 @@ export class UserController {
         return this.userService.updateDOB(req.user.id, body.value);
       case userUpdateDetails.Email:
         return this.userService.updateEmail(req.user.id, body.value);
+      case userUpdateDetails.Fee:
+        return this.userService.updateFee(req.user.id, parseFloat(body.value));
     }
   }
 

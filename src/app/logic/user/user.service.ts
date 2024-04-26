@@ -22,7 +22,9 @@ export class UserService {
   ) {}
 
   async getUserProfileById(id): Promise<user> {
-    const data = await this.userRepo.findOne({ where: { id } });
+    const data = await this.userRepo.findOne({ where: { id },  relations: {
+        photos: true,
+      },});
     return data;
   }
 
@@ -264,6 +266,13 @@ export class UserService {
     return {
       success: true,
       message: 'Email Updated',
+    };
+  }
+  async updateFee(userId: number, value: number) {
+      await this.userRepo.update({ id: userId }, { fee: value });
+    return {
+      success: true,
+      message: 'Fee Updated',
     };
   }
 
