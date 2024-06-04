@@ -20,7 +20,6 @@ export class RequestsService {
     user: RequestUserDTO,
     requester: number,
   ): Promise<GeneralResponse> {
-
     const checkIfRequested = await this.requestIsValid(user.userId, requester);
     if (checkIfRequested) {
       if (
@@ -111,7 +110,14 @@ export class RequestsService {
           userReceivingRequest: { id: userId },
         },
       ],
-      relations: ['userReceivingRequest', 'userRequesting'],
+      relations: {
+        userRequesting: {
+          photos: true,
+        },
+        userReceivingRequest: {
+          photos: true,
+        },
+      },
     });
   }
 
@@ -143,7 +149,6 @@ export class RequestsService {
       where: { id: requestId },
       relations: { userRequesting: true, userReceivingRequest: true },
     });
-    console.log('request', request);
 
     if (userId != request.userReceivingRequest.id) {
       return {
@@ -213,7 +218,6 @@ export class RequestsService {
         message: 'There is no request',
       };
     }
-    console.log('request', request);
 
     return request;
   }

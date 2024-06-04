@@ -57,6 +57,12 @@ export class UserController {
         return this.userService.updateEmail(req.user.id, body.value);
       case userUpdateDetails.Fee:
         return this.userService.updateFee(req.user.id, parseFloat(body.value));
+      case userUpdateDetails.Phone:
+        return this.userService.updatePhoneNumber(req.user.id, body.value);
+      case userUpdateDetails.Gender:
+        return this.userService.updateUserGender(req.user.id, body.value);
+      case userUpdateDetails.Bio:
+        return this.userService.updateUserBio(req.user.id, body.value);
     }
   }
 
@@ -74,10 +80,7 @@ export class UserController {
   }
   @UseGuards(JwtAuthGuard)
   @Get('getMyProfile')
-  getMyProfile(
-    @Request() req,
-  ): Promise<user> {
-    console.log(req.user);
+  getMyProfile(@Request() req): Promise<user> {
     return this.userService.getUserProfileById(req.user.id);
   }
 
@@ -89,7 +92,6 @@ export class UserController {
     @Request() req,
     @Body() body,
   ) {
-    console.log(body);
     const fullPath = `${process.env.hostResolver}${file.originalname}`;
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const fs = require('fs');

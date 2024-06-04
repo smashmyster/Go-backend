@@ -1,0 +1,341 @@
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class SubscriptionExtraData1716877481423 implements MigrationInterface {
+  name = 'SubscriptionExtraData1716877481423';
+
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` ADD \`paymentDate\` datetime NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` ADD \`paid\` tinyint NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` ADD \`paymentTraceId\` varchar(255) NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` DROP FOREIGN KEY \`FK_a0f3f1de3c7590ddf4299b6596a\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`name\` \`name\` varchar(255) NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`email\` \`email\` varchar(255) NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`password\` \`password\` varchar(255) NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`expoPushNotificationToken\` \`expoPushNotificationToken\` varchar(255) NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`loginToken\` \`loginToken\` varchar(255) NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`createdOn\` \`createdOn\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`updatedOn\` \`updatedOn\` timestamp NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`DOB\` \`DOB\` datetime NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`walletBalance\` \`walletBalance\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`fee\` \`fee\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`otp\` \`otp\` varchar(255) NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`gender\` \`gender\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` DROP FOREIGN KEY \`FK_2e8a2183ecd6c4efc05282f6a23\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` CHANGE \`createdOn\` \`createdOn\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` CHANGE \`user\` \`user\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` DROP FOREIGN KEY \`FK_76d4cb564a04d0ac45be490f5be\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` DROP FOREIGN KEY \`FK_b9c7d3142a955afb4bc58814412\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` CHANGE \`firstUser\` \`firstUser\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` CHANGE \`secondUser\` \`secondUser\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` DROP FOREIGN KEY \`FK_c8b9139ba4f9e223d046d684330\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` DROP FOREIGN KEY \`FK_c14b223be7f9f5c2c241e12fc81\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`startTime\` \`startTime\` datetime NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`endTime\` \`endTime\` datetime NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`createdOn\` \`createdOn\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`userRequesting\` \`userRequesting\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`userReceivingRequest\` \`userReceivingRequest\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` DROP FOREIGN KEY \`FK_04ad2a469f87f4413134e67c790\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` DROP FOREIGN KEY \`FK_2575c331c07d03b43e0cedc7d6e\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` CHANGE \`userSubscribing\` \`userSubscribing\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` CHANGE \`subscription\` \`subscription\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_fc6f083269edb7a7798cdf13b08\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_58f9656fc8d2a98cd9d6d5d42de\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_2eeda8980b7f51baed776ede6ad\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_2048ebf97c85d872d7f8039adae\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`readAt\` \`readAt\` timestamp NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`sender\` \`sender\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`receiver\` \`receiver\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`messageType\` \`messageType\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`chatLink\` \`chatLink\` int NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` ADD CONSTRAINT \`FK_a0f3f1de3c7590ddf4299b6596a\` FOREIGN KEY (\`gender\`) REFERENCES \`gender\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` ADD CONSTRAINT \`FK_2e8a2183ecd6c4efc05282f6a23\` FOREIGN KEY (\`user\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` ADD CONSTRAINT \`FK_76d4cb564a04d0ac45be490f5be\` FOREIGN KEY (\`firstUser\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` ADD CONSTRAINT \`FK_b9c7d3142a955afb4bc58814412\` FOREIGN KEY (\`secondUser\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` ADD CONSTRAINT \`FK_c8b9139ba4f9e223d046d684330\` FOREIGN KEY (\`userRequesting\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` ADD CONSTRAINT \`FK_c14b223be7f9f5c2c241e12fc81\` FOREIGN KEY (\`userReceivingRequest\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` ADD CONSTRAINT \`FK_04ad2a469f87f4413134e67c790\` FOREIGN KEY (\`userSubscribing\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` ADD CONSTRAINT \`FK_2575c331c07d03b43e0cedc7d6e\` FOREIGN KEY (\`subscription\`) REFERENCES \`subscriptions\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_fc6f083269edb7a7798cdf13b08\` FOREIGN KEY (\`sender\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_58f9656fc8d2a98cd9d6d5d42de\` FOREIGN KEY (\`receiver\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_2eeda8980b7f51baed776ede6ad\` FOREIGN KEY (\`messageType\`) REFERENCES \`message_types\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_2048ebf97c85d872d7f8039adae\` FOREIGN KEY (\`chatLink\`) REFERENCES \`messages_chat\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_2048ebf97c85d872d7f8039adae\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_2eeda8980b7f51baed776ede6ad\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_58f9656fc8d2a98cd9d6d5d42de\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` DROP FOREIGN KEY \`FK_fc6f083269edb7a7798cdf13b08\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` DROP FOREIGN KEY \`FK_2575c331c07d03b43e0cedc7d6e\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` DROP FOREIGN KEY \`FK_04ad2a469f87f4413134e67c790\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` DROP FOREIGN KEY \`FK_c14b223be7f9f5c2c241e12fc81\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` DROP FOREIGN KEY \`FK_c8b9139ba4f9e223d046d684330\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` DROP FOREIGN KEY \`FK_b9c7d3142a955afb4bc58814412\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` DROP FOREIGN KEY \`FK_76d4cb564a04d0ac45be490f5be\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` DROP FOREIGN KEY \`FK_2e8a2183ecd6c4efc05282f6a23\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` DROP FOREIGN KEY \`FK_a0f3f1de3c7590ddf4299b6596a\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`chatLink\` \`chatLink\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`messageType\` \`messageType\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`receiver\` \`receiver\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`sender\` \`sender\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` CHANGE \`readAt\` \`readAt\` timestamp NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_2048ebf97c85d872d7f8039adae\` FOREIGN KEY (\`chatLink\`) REFERENCES \`messages_chat\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_2eeda8980b7f51baed776ede6ad\` FOREIGN KEY (\`messageType\`) REFERENCES \`message_types\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_58f9656fc8d2a98cd9d6d5d42de\` FOREIGN KEY (\`receiver\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages\` ADD CONSTRAINT \`FK_fc6f083269edb7a7798cdf13b08\` FOREIGN KEY (\`sender\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` CHANGE \`subscription\` \`subscription\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` CHANGE \`userSubscribing\` \`userSubscribing\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` ADD CONSTRAINT \`FK_2575c331c07d03b43e0cedc7d6e\` FOREIGN KEY (\`subscription\`) REFERENCES \`subscriptions\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` ADD CONSTRAINT \`FK_04ad2a469f87f4413134e67c790\` FOREIGN KEY (\`userSubscribing\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`userReceivingRequest\` \`userReceivingRequest\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`userRequesting\` \`userRequesting\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`createdOn\` \`createdOn\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP()`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`endTime\` \`endTime\` datetime NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` CHANGE \`startTime\` \`startTime\` datetime NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` ADD CONSTRAINT \`FK_c14b223be7f9f5c2c241e12fc81\` FOREIGN KEY (\`userReceivingRequest\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_requests\` ADD CONSTRAINT \`FK_c8b9139ba4f9e223d046d684330\` FOREIGN KEY (\`userRequesting\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` CHANGE \`secondUser\` \`secondUser\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` CHANGE \`firstUser\` \`firstUser\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` ADD CONSTRAINT \`FK_b9c7d3142a955afb4bc58814412\` FOREIGN KEY (\`secondUser\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`messages_chat\` ADD CONSTRAINT \`FK_76d4cb564a04d0ac45be490f5be\` FOREIGN KEY (\`firstUser\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` CHANGE \`user\` \`user\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` CHANGE \`createdOn\` \`createdOn\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP()`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_photos\` ADD CONSTRAINT \`FK_2e8a2183ecd6c4efc05282f6a23\` FOREIGN KEY (\`user\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`gender\` \`gender\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`otp\` \`otp\` varchar(255) NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`fee\` \`fee\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`walletBalance\` \`walletBalance\` int NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`DOB\` \`DOB\` datetime NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`updatedOn\` \`updatedOn\` timestamp NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`createdOn\` \`createdOn\` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP()`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`loginToken\` \`loginToken\` varchar(255) NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`expoPushNotificationToken\` \`expoPushNotificationToken\` varchar(255) NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`password\` \`password\` varchar(255) NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`email\` \`email\` varchar(255) NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` CHANGE \`name\` \`name\` varchar(255) NULL DEFAULT 'NULL'`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user\` ADD CONSTRAINT \`FK_a0f3f1de3c7590ddf4299b6596a\` FOREIGN KEY (\`gender\`) REFERENCES \`gender\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` DROP COLUMN \`paymentTraceId\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` DROP COLUMN \`paid\``,
+    );
+    await queryRunner.query(
+      `ALTER TABLE \`user_subscriptions\` DROP COLUMN \`paymentDate\``,
+    );
+  }
+}

@@ -7,7 +7,6 @@ import { messagesChat } from '../../entities/message-chat';
 import { messageTypes } from '../../entities/message-type';
 import { messageRelations } from './DTO/relations';
 import { SendUserMessageDTO } from './DTO/sendUserMessageDTO';
-import { GeneralResponse } from '../../../utils/SharedSchema';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable()
@@ -21,12 +20,13 @@ export class ChatService {
     @InjectRepository(messageTypes)
     private readonly messageTypeRepo: Repository<messageTypes>,
   ) {}
-  private subject = new Subject<{ name: string, data: unknown,userId:number }>();
+  private subject = new Subject<{
+    name: string;
+    data: unknown;
+    userId: number;
+  }>();
 
-  async sendMessage(
-    data: SendUserMessageDTO,
-    senderId,
-  ): Promise<messages> {
+  async sendMessage(data: SendUserMessageDTO, senderId): Promise<messages> {
     const sender = await this.userService.getUserProfileById(senderId);
     const receiver = await this.userService.getUserProfileById(data.receiver);
     const messageType = await this.messageTypeRepo.findOne({
@@ -44,7 +44,6 @@ export class ChatService {
       chatLink,
     };
     const saveMessage = await this.messagesRepo.save(saveUserMessage);
-    console.log(saveMessage);
     // const socket=io('http://localhost:3001')
     // socket.on('connect',()=>{
     //   socket.emit('server-message',{sender:sender.id,receiver:receiver.id,messageType,message,read:false,createdOn:saveMessage.createdOn})
@@ -54,10 +53,18 @@ export class ChatService {
       { id: chatLink.id },
       { lastUpdated: new Date() },
     );
-    this.subject.next({name:'message',data:saveMessage,userId:receiver.id })
+    this.subject.next({
+      name: 'message',
+      data: saveMessage,
+      userId: receiver.id,
+    });
     return saveMessage;
   }
-  getSocketEmmit$(): Observable<{ name: string, data: unknown,userId:number }> {
+  getSocketEmmit$(): Observable<{
+    name: string;
+    data: unknown;
+    userId: number;
+  }> {
     return this.subject.asObservable();
   }
   async getMessages(userChat: number, offset: number): Promise<messages[]> {

@@ -2,10 +2,15 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserPhotos } from './user-photos';
+import { Gender } from './gender';
+import {subscriptions} from './subscriptions';
+import { userSubscriptions } from './user-subscriptions';
 
 @Entity()
 export class user extends BaseEntity {
@@ -21,6 +26,8 @@ export class user extends BaseEntity {
   phoneNumber: string;
   @Column({ nullable: true })
   expoPushNotificationToken: string;
+  @Column({ nullable: true, default: '' })
+  bio: string;
   @Column({ type: 'varchar', nullable: true })
   loginToken: string;
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
@@ -57,6 +64,11 @@ export class user extends BaseEntity {
   numberOfRequests: number;
   @Column({ type: 'float', nullable: true, default: 0 })
   requestsAccepted: number;
+  @ManyToOne(() => Gender)
+  @JoinColumn({ name: 'gender', referencedColumnName: 'id' })
+  gender: Gender;
   @OneToMany(() => UserPhotos, (photo) => photo.user)
   photos: UserPhotos[];
+  @OneToMany(() => userSubscriptions, (userSubscriptions) => userSubscriptions.userSubscribing)
+  subscriptions: userSubscriptions[];
 }

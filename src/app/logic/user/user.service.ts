@@ -9,6 +9,7 @@ import { generateOTP } from '../../../utils/Utils';
 import { jwtConstants } from '../auth/constants';
 import { JwtService } from '@nestjs/jwt';
 import { UserPhotos } from '../../entities/user-photos';
+import * as process from 'process';
 
 @Injectable()
 export class UserService {
@@ -22,9 +23,16 @@ export class UserService {
   ) {}
 
   async getUserProfileById(id): Promise<user> {
-    const data = await this.userRepo.findOne({ where: { id },  relations: {
+    const data = await this.userRepo.findOne({
+      where: { id },
+      relations: {
         photos: true,
-      },});
+        subscriptions: {
+          subscription: true,
+        }
+      },
+    });
+    data.subscriptions=data.subscriptions.filter(item => item.active == true)
     return data;
   }
 
@@ -180,7 +188,9 @@ export class UserService {
   getUserByEmailOrPhone(params: string) {
     return this.userRepo.findOne({ where: { email: params } });
   }
-
+  getUserByPhone(phoneNumber:string):Promise<user>{
+    return  this.userRepo.findOne({where:{phoneNumber}})
+  }
   async createUserPhone(phoneNumber: string) {
     const checkPhone = await this.userRepo.findOne({
       where: {
@@ -234,6 +244,20 @@ export class UserService {
       message: 'Name Updated',
     };
   }
+  async updateUserGender(
+    userId: number,
+    genderId: string,
+  ): Promise<GeneralResponse> {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+    const gender = await this.genderService.getOne(genderId);
+    if (user) {
+      await this.userRepo.update({ id: userId }, { gender: gender });
+    }
+    return {
+      success: true,
+      message: 'Name Updated',
+    };
+  }
 
   async updateDOB(userId: number, date: string): Promise<GeneralResponse> {
     const user = await this.userRepo.findOne({ where: { id: userId } });
@@ -269,7 +293,7 @@ export class UserService {
     };
   }
   async updateFee(userId: number, value: number) {
-      await this.userRepo.update({ id: userId }, { fee: value });
+    await this.userRepo.update({ id: userId }, { fee: value });
     return {
       success: true,
       message: 'Fee Updated',
@@ -301,7 +325,7 @@ export class UserService {
         const photoLinked = await this.imageRepo.findOne({
           where: { image: user.coverImage },
         });
-        if (photoSave.order < photoLinked.order) {
+        if (photoLinked && photoSave.order < photoLinked.order) {
           await this.userRepo.update({ id: userId }, { coverImage: fullPath });
         }
       }
@@ -319,5 +343,21 @@ export class UserService {
       },
     });
     return usersGet;
+  }
+
+  async updatePhoneNumber(userId, value: string) {
+    await this.userRepo.update({ id: userId }, { phoneNumber: value });
+    return {
+      success: true,
+      message: 'Fee Updated',
+    };
+  }
+
+  async updateUserBio(userId, value: string) {
+    await this.userRepo.update({ id: userId }, { bio: value });
+    return {
+      success: true,
+      message: 'Fee Updated',
+    };
   }
 }

@@ -6,7 +6,7 @@ export default new DataSource({
   port: 3306,
   username: 'root',
   password: '',
-  database: 'go',
+  database: 'hook',
   logging: false,
   synchronize: false,
   entities: ['src/app/entities/*{.ts,.js}'],

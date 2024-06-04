@@ -13,11 +13,17 @@ import { UserPhotos } from '../../entities/user-photos';
 import { Gender } from '../../entities/gender';
 
 @Module({
-
   imports: [
-    TypeOrmModule.forFeature([messages, messageTypes, user, messagesChat,UserPhotos,Gender]),
+    TypeOrmModule.forFeature([
+      messages,
+      messageTypes,
+      user,
+      messagesChat,
+      UserPhotos,
+      Gender,
+    ]),
   ],
-  providers:[Gateway,ChatService,UserService,GenderService,JwtService],
-  exports:[ChatService]
+  providers: [Gateway, ChatService, UserService, GenderService, JwtService],
+  exports: [ChatService],
 })
 export class GatewayModule {}

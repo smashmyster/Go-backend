@@ -23,6 +23,9 @@ import { ChatModule } from './app/logic/chat/chat.module';
 import { Gateway } from './app/logic/gateway/gateway';
 import { GatewayModule } from './app/logic/gateway/gateway.module';
 import { ConfigModule } from '@nestjs/config';
+import { SubscriptionsController } from './app/logic/subscriptions/subscriptions.controller';
+import { SubscriptionsService } from './app/logic/subscriptions/subscriptions.service';
+import { SubscriptionsModule } from './app/logic/subscriptions/subscriptions.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 @Module({
   imports: [
@@ -48,6 +51,7 @@ import { ConfigModule } from '@nestjs/config';
     RequestsModule,
     ChatModule,
     GatewayModule,
+    SubscriptionsModule,
   ],
   controllers: [
     AppController,
@@ -56,6 +60,7 @@ import { ConfigModule } from '@nestjs/config';
     AuthController,
     RequestsController,
     ChatController,
+    SubscriptionsController,
   ],
   providers: [
     AppService,
@@ -65,7 +70,8 @@ import { ConfigModule } from '@nestjs/config';
     JwtService,
     RequestsService,
     ChatService,
-    Gateway
+    Gateway,
+    SubscriptionsService,
   ],
 })
 export class AppModule {}

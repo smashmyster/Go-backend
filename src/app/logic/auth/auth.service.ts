@@ -3,12 +3,18 @@ import { UserService } from '../user/user.service';
 import { user } from '../../entities/user';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { GeneralResponse } from '../../../utils/SharedSchema';
+import { generateOTP } from '../../../utils/Utils';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UserService,
     private readonly jwtService: JwtService,
+    @InjectRepository(user)
+    private readonly userRepo:Repository<user>
   ) {}
 
   async validate(username: string, password: string) {
@@ -36,12 +42,55 @@ export class AuthService {
     // if (!decodedToken) {
     //   return null;
     // }'
-    console.log('ww', token);
     const user = await this.usersService.getUserByToken(token);
-    console.log('user', user);
     if (!user) {
       return null;
     }
     return user;
+  }
+
+  async loginWithPhone(phoneNumber:string):Promise<GeneralResponse> {
+    const user=await this.usersService.getUserByPhone(phoneNumber)
+    if(user){
+      const otp = generateOTP();
+      await this.userRepo.update(
+        { id: user.id },
+        { otp},
+      );
+      return  {
+        success:true,
+        message:"Code created"
+      }
+    }else{
+      return {
+        success:false,
+        message:"Phone number does not exist"
+      }
+    }
+  }
+
+  async verifyUserLoginCode(phoneNumber: string, code: string) {
+    const user = await this.usersService.getUserByPhone(phoneNumber);
+    if (user) {
+      if (user.otp == code.toString()) {
+        const loginToken=await  this.login(user)
+        await this.userRepo.update({ id: user.id }, { otp: '',loginToken:loginToken.access_token });
+        return  {
+          success:true,
+          message:loginToken.access_token
+        }
+
+      } else {
+        return {
+          success: false,
+          message: 'Wrong otp',
+        };
+      }
+    }else{
+      return {
+        success: false,
+        message: 'Please stop hacking this endpoint it wont end well',
+      };
+    }
   }
 }
