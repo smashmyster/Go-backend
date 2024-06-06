@@ -20,7 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async authenticate(req: e.Request) {
-    console.log(req.headers);
     if (!req.headers.authorization) this.fail(401);
     const user = await this.authService.verify(
       req.headers.authorization.replace('Bearer ', ''),

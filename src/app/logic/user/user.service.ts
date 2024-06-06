@@ -10,6 +10,7 @@ import { jwtConstants } from '../auth/constants';
 import { JwtService } from '@nestjs/jwt';
 import { UserPhotos } from '../../entities/user-photos';
 import * as process from 'process';
+import { RequestsService } from '../requests/requests.service';
 
 @Injectable()
 export class UserService {
@@ -20,6 +21,7 @@ export class UserService {
     private readonly jwtService: JwtService,
     @InjectRepository(UserPhotos)
     private readonly imageRepo: Repository<UserPhotos>,
+    private readonly requestService:RequestsService
   ) {}
 
   async getUserProfileById(id): Promise<user> {
@@ -334,12 +336,23 @@ export class UserService {
 
   async getUsers(userId: number): Promise<user[]> {
     const requesters = [userId];
+    const sentRequests=await  this.requestService.getAllRequests(userId)
+    console.log(sentRequests);
+    const data=sentRequests.map(item=>{
+      if(item.userRequesting.id==userId){
+        requesters.push(item.userReceivingRequest.id)
+      }else{
+        requesters.push(item.userRequesting.id)
+      }
+    })
     const usersGet = await this.userRepo.find({
       relations: {
         photos: true,
       },
       where: {
         id: Not(In(requesters)),
+        active:true,
+
       },
     });
     return usersGet;
@@ -360,4 +373,12 @@ export class UserService {
       message: 'Fee Updated',
     };
   }
+
+  async updateUserActive(userId, valueReceived: string) {
+    const value=valueReceived=="true"
+    await this.userRepo.update({ id: userId }, { active: value });
+    return {
+      success: true,
+      message: 'Fee Updated',
+    };  }
 }

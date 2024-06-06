@@ -7,6 +7,7 @@ import { GeneralResponse } from '../../../utils/SharedSchema';
 import { generateOTP } from '../../../utils/Utils';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { sendNotification } from '../../../utils/Notifications';
 
 @Injectable()
 export class AuthService {
@@ -69,12 +70,13 @@ export class AuthService {
     }
   }
 
-  async verifyUserLoginCode(phoneNumber: string, code: string) {
+  async verifyUserLoginCode(phoneNumber: string, code: string,expoToken:string) {
     const user = await this.usersService.getUserByPhone(phoneNumber);
     if (user) {
       if (user.otp == code.toString()) {
         const loginToken=await  this.login(user)
-        await this.userRepo.update({ id: user.id }, { otp: '',loginToken:loginToken.access_token });
+        await this.userRepo.update({ id: user.id }, { otp: '',loginToken:loginToken.access_token,expoPushNotificationToken:expoToken });
+        sendNotification('Login','You received a message',expoToken)
         return  {
           success:true,
           message:loginToken.access_token

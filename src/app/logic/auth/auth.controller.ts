@@ -28,8 +28,8 @@ export class AuthController {
   }
   @Post('verifyUserLoginCode')
   verifyUserCode(
-    @Body() body: { code: string,phoneNumber:string },
+    @Body() body: { code: string,phoneNumber:string,expoToken?:string },
   ): Promise<GeneralResponse> {
-    return this.authService.verifyUserLoginCode(body.phoneNumber, body.code);
+    return this.authService.verifyUserLoginCode(body.phoneNumber, body.code,body.expoToken);
   }
 }

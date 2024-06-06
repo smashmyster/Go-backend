@@ -11,6 +11,8 @@ import { GenderService } from '../gender/gender.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserPhotos } from '../../entities/user-photos';
 import { Gender } from '../../entities/gender';
+import { RequestsService } from '../requests/requests.service';
+import { UserRequests } from '../../entities/user-requests';
 
 @Module({
   imports: [
@@ -21,9 +23,10 @@ import { Gender } from '../../entities/gender';
       messagesChat,
       UserPhotos,
       Gender,
+      UserRequests
     ]),
   ],
-  providers: [Gateway, ChatService, UserService, GenderService, JwtService],
+  providers: [Gateway, ChatService, UserService, GenderService, JwtService,RequestsService],
   exports: [ChatService],
 })
 export class GatewayModule {}

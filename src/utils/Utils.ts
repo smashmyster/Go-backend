@@ -12,4 +12,6 @@ export enum userUpdateDetails {
   'Phone',
   'Gender',
   'Bio',
+  'Active',
 }
+

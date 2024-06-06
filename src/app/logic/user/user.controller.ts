@@ -63,6 +63,8 @@ export class UserController {
         return this.userService.updateUserGender(req.user.id, body.value);
       case userUpdateDetails.Bio:
         return this.userService.updateUserBio(req.user.id, body.value);
+      case userUpdateDetails.Active:
+        return this.userService.updateUserActive(req.user.id, body.value);
     }
   }
 

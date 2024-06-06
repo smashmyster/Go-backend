@@ -86,7 +86,6 @@ export class RequestsController {
     @Request() req,
     @Body() requestData,
   ): Promise<UserRequests | GeneralResponse> {
-    console.log('requestData', requestData);
     return this.requestsService.updatePayment(
       requestData.requestId,
       req.user.id,
