@@ -26,6 +26,9 @@ import { ConfigModule } from '@nestjs/config';
 import { SubscriptionsController } from './app/logic/subscriptions/subscriptions.controller';
 import { SubscriptionsService } from './app/logic/subscriptions/subscriptions.service';
 import { SubscriptionsModule } from './app/logic/subscriptions/subscriptions.module';
+import { NotificationsController } from './app/logic/notifications/notifications.controller';
+import { NotificationsService } from './app/logic/notifications/notifications.service';
+import { NotificationsModule } from './app/logic/notifications/notifications.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 @Module({
   imports: [
@@ -52,6 +55,7 @@ import { SubscriptionsModule } from './app/logic/subscriptions/subscriptions.mod
     ChatModule,
     GatewayModule,
     SubscriptionsModule,
+    NotificationsModule,
   ],
   controllers: [
     AppController,
@@ -61,6 +65,7 @@ import { SubscriptionsModule } from './app/logic/subscriptions/subscriptions.mod
     RequestsController,
     ChatController,
     SubscriptionsController,
+    NotificationsController,
   ],
   providers: [
     AppService,
@@ -72,6 +77,7 @@ import { SubscriptionsModule } from './app/logic/subscriptions/subscriptions.mod
     ChatService,
     Gateway,
     SubscriptionsService,
+    NotificationsService,
   ],
 })
 export class AppModule {}

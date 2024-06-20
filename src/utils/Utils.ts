@@ -11,7 +11,9 @@ export enum userUpdateDetails {
   'Fee',
   'Phone',
   'Gender',
+  'InterestedGender',
   'Bio',
   'Active',
+  'WalletTopUp'
 }
 

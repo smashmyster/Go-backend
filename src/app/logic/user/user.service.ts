@@ -260,6 +260,34 @@ export class UserService {
       message: 'Name Updated',
     };
   }
+  async updateUserInterestedGender(
+    userId: number,
+    genderId: string,
+  ): Promise<GeneralResponse> {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+    const gender = await this.genderService.getOne(genderId);
+    if (user) {
+      await this.userRepo.update({ id: userId }, { genderInterested: gender });
+    }
+    return {
+      success: true,
+      message: 'Name Updated',
+    };
+  }async updateWalletTopUp(
+    userId: number,
+    amount: string,
+  ): Promise<GeneralResponse> {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+    if (user) {
+      const walletBalance=user?.walletBalance?user.walletBalance+parseFloat(amount):parseFloat(amount)
+
+      await this.userRepo.update({ id: userId }, { walletBalance });
+    }
+    return {
+      success: true,
+      message: 'Balance Updated',
+    };
+  }
 
   async updateDOB(userId: number, date: string): Promise<GeneralResponse> {
     const user = await this.userRepo.findOne({ where: { id: userId } });
@@ -339,6 +367,9 @@ export class UserService {
     const sentRequests=await  this.requestService.getAllRequests(userId)
     console.log(sentRequests);
     const data=sentRequests.map(item=>{
+      if(item.completed){
+        return
+      }
       if(item.userRequesting.id==userId){
         requesters.push(item.userReceivingRequest.id)
       }else{

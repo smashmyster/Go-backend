@@ -18,7 +18,8 @@ import { userUpdateDetails } from '../../../utils/Utils';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+  }
 
   @Post('signUp')
   signupUser(@Body() data: SignUpDTO): Promise<user | GeneralResponse> {
@@ -47,6 +48,7 @@ export class UserController {
     @Body() body: { value: string; field: userUpdateDetails },
     @Request() req,
   ): Promise<GeneralResponse> {
+    console.log(body);
     switch (body.field) {
       case userUpdateDetails.Name:
         return this.userService.updateUserName(req.user.id, body.value);
@@ -65,6 +67,10 @@ export class UserController {
         return this.userService.updateUserBio(req.user.id, body.value);
       case userUpdateDetails.Active:
         return this.userService.updateUserActive(req.user.id, body.value);
+      case userUpdateDetails.InterestedGender:
+        return this.userService.updateUserInterestedGender(req.user.id, body.value);
+      case userUpdateDetails.WalletTopUp:
+        return this.userService.updateWalletTopUp(req.user.id, body.value);
     }
   }
 
@@ -80,6 +86,7 @@ export class UserController {
   ): Promise<GeneralResponse> {
     return this.userService.checkCredential(data);
   }
+
   @UseGuards(JwtAuthGuard)
   @Get('getMyProfile')
   getMyProfile(@Request() req): Promise<user> {

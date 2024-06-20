@@ -67,6 +67,9 @@ export class user extends BaseEntity {
   @ManyToOne(() => Gender)
   @JoinColumn({ name: 'gender', referencedColumnName: 'id' })
   gender: Gender;
+  @ManyToOne(() => Gender)
+  @JoinColumn({ name: 'genderInterested', referencedColumnName: 'id' })
+  genderInterested: Gender;
   @OneToMany(() => UserPhotos, (photo) => photo.user)
   photos: UserPhotos[];
   @OneToMany(() => userSubscriptions, (userSubscriptions) => userSubscriptions.userSubscribing)
